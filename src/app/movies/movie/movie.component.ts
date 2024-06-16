@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    DestroyRef,
+    OnInit,
+    inject,
+    signal,
+} from '@angular/core';
 import { MoviesService } from '../shared/movies.service';
 import { MoviesList } from '../shared/movies.types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -7,10 +14,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [],
     providers: [MoviesService],
-    selector: 'app-movies-list',
+    selector: 'app-movie',
     standalone: true,
-    templateUrl: './movies-list.component.html',
-    styleUrls: ['./movies-list.component.css'],
+    templateUrl: './movie.component.html',
+    styleUrls: ['./movie.component.css'],
 })
 export class MoviesListComponent implements OnInit {
     // * Injectors
@@ -22,10 +29,10 @@ export class MoviesListComponent implements OnInit {
 
     ngOnInit(): void {
         this.moviesService
-            .getList()
+            .get('e80d5a37-620e-4be2-92b9-fb1f5262494f')
             .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe((moviesList: MoviesList[]) => {
-                this.moviesList = moviesList;
+            .subscribe((data) => {
+                console.log(data);
             });
     }
 }
