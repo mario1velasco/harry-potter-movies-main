@@ -1,18 +1,24 @@
-import { ChangeDetectionStrategy, Component, Input, TrackByFunction } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, TrackByFunction, inject } from '@angular/core';
 import { MoviesList } from '../../../shared/movies.types';
 import { Observable } from 'rxjs';
 import { NgIf, AsyncPipe, NgFor, CurrencyPipe } from '@angular/common';
 import { DurationPipe } from '../../../../../shared/pipes/duration.pipe';
+import { BudgetPipe } from '../../../../../budget.pipe';
+import { Router } from '@angular/router';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgIf, AsyncPipe, NgFor, CurrencyPipe, DurationPipe],
+    imports: [NgIf, AsyncPipe, NgFor, CurrencyPipe, DurationPipe, BudgetPipe],
     selector: 'app-movies-list-results',
     standalone: true,
     templateUrl: './movies-list-results.component.html',
     styleUrls: ['./movies-list-results.component.css'],
 })
 export class MoviesListResultsComponent {
+    // * Injectors
+    private router = inject(Router);
+
+    // * Inputs
     @Input() public moviesList$: Observable<MoviesList[]> | undefined;
 
     /**
@@ -27,5 +33,20 @@ export class MoviesListResultsComponent {
      */
     public trackByMovieId(index: number, item: MoviesList): string {
         return item.id; // Use the 'id' property as the unique identifier
+    }
+
+    // ************
+    // * EVENTS
+    // ************
+
+    /**
+     * The function `onMovieBtnClick` navigates to a specific movie page based on the movie's ID when a
+     * button is clicked.
+     * @param {MoviesList} movie - The `movie` parameter is an object of type `MoviesList` that
+     * represents a specific movie in a list of movies. It likely contains properties such as `id`,
+     * `title`, `genre`, `releaseDate`, etc., that provide information about the movie.
+     */
+    onMovieBtnClick(movie: MoviesList) {
+        this.router.navigate(['/movies', movie.id]);
     }
 }

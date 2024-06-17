@@ -19,7 +19,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     templateUrl: './movie.component.html',
     styleUrls: ['./movie.component.css'],
 })
-export class MoviesListComponent implements OnInit {
+export class MovieComponent implements OnInit {
     // * Injectors
     private moviesService = inject(MoviesService);
     private destroyRef = inject(DestroyRef);

@@ -13,7 +13,7 @@
                     <span>Duration: {{ movie.duration | duration }}</span>
                 </div>
             </div>
-            <button>Details</button>
+            <button (click)="onMovieBtnClick(movie)">Details</button>
         </li>
     </ul>
 </ng-container>
