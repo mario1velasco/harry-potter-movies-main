@@ -12,10 +12,11 @@ import { MoviesListResultsComponent } from './components/movies-list-results/mov
 import { FormBuilder } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgIf } from '@angular/common';
+import { MoviesListFilterComponent } from './components/movies-list-filter/movies-list-filter.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [MoviesListResultsComponent, NgIf],
+    imports: [MoviesListResultsComponent, NgIf, MoviesListFilterComponent],
     providers: [MoviesService],
     selector: 'app-movies-list',
     standalone: true,
@@ -51,5 +52,8 @@ export class MoviesListComponent implements OnInit {
                 this.moviesList = moviesList;
                 this.cd.markForCheck();
             });
+        this.form.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((data) => {
+            console.log(data);
+        });
     }
 }

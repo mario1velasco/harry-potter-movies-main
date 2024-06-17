@@ -1,3 +1,6 @@
-<ng-container *ngIf="moviesList.length > 0">
-    <app-movies-list-results [moviesList]="moviesList"></app-movies-list-results>
-</ng-container>
+<app-movies-list-filter
+    *ngIf="form"
+    [form]="form"></app-movies-list-filter>
+<app-movies-list-results
+    *ngIf="moviesList.length > 0"
+    [moviesList]="moviesList"></app-movies-list-results>
