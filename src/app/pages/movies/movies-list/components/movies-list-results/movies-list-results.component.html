@@ -1,4 +1,4 @@
-<ng-container *ngIf="moviesList$ | async as moviesList">
+<ng-container *ngIf="moviesList">
     <ul *ngFor="let movie of moviesList; trackBy: trackByMovieId">
         <li class="movie">
             <div>
@@ -13,7 +13,11 @@
                     <span>Duration: {{ movie.duration | duration }}</span>
                 </div>
             </div>
-            <button (click)="onMovieBtnClick(movie)">Details</button>
+            <button
+                (click)="onMovieBtnClick(movie)"
+                [id]="movie.id">
+                Details
+            </button>
         </li>
     </ul>
 </ng-container>

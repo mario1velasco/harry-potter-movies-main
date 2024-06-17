@@ -19,7 +19,7 @@ export class MoviesListResultsComponent {
     private router = inject(Router);
 
     // * Inputs
-    @Input() public moviesList$: Observable<MoviesList[]> | undefined;
+    @Input() public moviesList: MoviesList[] | undefined;
 
     /**
      * The trackByMovieId function in TypeScript returns the unique identifier of a movie item based on
