@@ -2,25 +2,18 @@
     <ul *ngFor="let movie of moviesList; trackBy: trackByMovieId">
         <li class="movie">
             <div>
-                <span>{{ movie.title }}</span>
+                <span>
+                    <b>{{ movie.title }}</b>
+                </span>
                 <div>
-                    <span>{{ movie.release_date }}</span>
-                    <span>
-                        ////
-                        <span>
-                            {{ movie.budget.split('-')[0] | currency: 'USD' : 'symbol' : '1.0-0' }}
-                        </span>
-                        <span *ngIf="movie.budget.split('-')[1]">
-                            -{{ movie.budget.split('-')[1] }}
-                        </span>
-                        million
-                    </span>
-                    <span>//// {{ movie.duration | duration }}</span>
+                    <span>Release date: {{ movie.release_date }}</span>
+                    <span>&nbsp;&nbsp;&nbsp;</span>
+                    <span>Budget: {{ movie.budget | budget }}</span>
+                    <span>&nbsp;&nbsp;&nbsp;</span>
+                    <span>Duration: {{ movie.duration | duration }}</span>
                 </div>
             </div>
-            <div>
-                <button>Details</button>
-            </div>
+            <button>Details</button>
         </li>
     </ul>
 </ng-container>
