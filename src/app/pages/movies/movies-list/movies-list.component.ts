@@ -1,31 +1,22 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MoviesService } from '../shared/movies.service';
 import { MoviesList } from '../shared/movies.types';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
+import { MoviesListResultsComponent } from './components/movies-list-results/movies-list-results.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [],
+    imports: [MoviesListResultsComponent],
     providers: [MoviesService],
     selector: 'app-movies-list',
     standalone: true,
     templateUrl: './movies-list.component.html',
     styleUrls: ['./movies-list.component.css'],
 })
-export class MoviesListComponent implements OnInit {
+export class MoviesListComponent {
     // * Injectors
     private moviesService = inject(MoviesService);
-    private destroyRef = inject(DestroyRef);
 
     // * Variables
-    public moviesList: MoviesList[] = [];
-
-    ngOnInit(): void {
-        this.moviesService
-            .getList()
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe((moviesList: MoviesList[]) => {
-                this.moviesList = moviesList;
-            });
-    }
+    public moviesList$: Observable<MoviesList[]> = this.moviesService.getList();
 }

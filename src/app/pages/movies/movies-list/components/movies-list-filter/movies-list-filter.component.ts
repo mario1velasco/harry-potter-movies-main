@@ -8,4 +8,4 @@ import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '
     templateUrl: './movies-list-filter.component.html',
     styleUrls: ['./movies-list-filter.component.css'],
 })
-export class MoviesListComponent {}
+export class MoviesListFilterComponent {}
