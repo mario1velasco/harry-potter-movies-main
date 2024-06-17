@@ -32,6 +32,7 @@ export class MoviesListComponent implements OnInit {
 
     // * Variables
     public moviesList: MoviesList[] = [];
+    public allMoviesList: MoviesList[] = [];
     public form = this.fb.group({
         title: [''],
         releaseYear: [''],
@@ -50,10 +51,42 @@ export class MoviesListComponent implements OnInit {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((moviesList) => {
                 this.moviesList = moviesList;
+                this.allMoviesList = moviesList;
                 this.cd.markForCheck();
             });
         this.form.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((data) => {
-            console.log(data);
+            this.updateMoviesList(data);
         });
+    }
+
+    // *****************
+    // * Private methods
+    // *****************
+    /**
+     * The function `updateMoviesList` filters a list of movies based on provided title and release year
+     * criteria.
+     * @param data - The `updateMoviesList` method takes a parameter `data` which is a partial object
+     * with optional properties `title` and `releaseYear`. These properties can be either a string or
+     * `null`.
+     */
+    private updateMoviesList(
+        form: Partial<{
+            title: string | null;
+            releaseYear: string | null;
+        }>,
+    ): void {
+        this.moviesList = this.allMoviesList.filter((movie) => {
+            if (form.title && !movie.title.toLowerCase().includes(form.title.toLowerCase())) {
+                return false;
+            }
+            if (
+                form.releaseYear &&
+                !movie.release_date.substring(0, 4).includes(form.releaseYear)
+            ) {
+                return false;
+            }
+            return true;
+        });
+        this.cd.markForCheck();
     }
 }
