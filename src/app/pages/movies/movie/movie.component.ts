@@ -1,18 +1,21 @@
 import {
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     DestroyRef,
     OnInit,
     inject,
-    signal,
 } from '@angular/core';
 import { MoviesService } from '../shared/movies.service';
-import { MoviesList } from '../shared/movies.types';
+import { Movie } from '../shared/movies.types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
+import { NgIf } from '@angular/common';
+import { BudgetPipe, DurationPipe } from '../../../shared/pipes';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [],
+    imports: [NgIf, BudgetPipe, DurationPipe],
     providers: [MoviesService],
     selector: 'app-movie',
     standalone: true,
@@ -23,16 +26,36 @@ export class MovieComponent implements OnInit {
     // * Injectors
     private moviesService = inject(MoviesService);
     private destroyRef = inject(DestroyRef);
+    private route = inject(ActivatedRoute);
+    private cd = inject(ChangeDetectorRef);
 
     // * Variables
-    public moviesList: MoviesList[] = [];
+    public movie: Movie | undefined;
+    public id: string | null = this.route.snapshot.paramMap.get('movieId');
 
+    // *****************
+    // * Lifecycle hooks
+    // *****************
+    /**
+     * The ngOnInit function in TypeScript is a lifecycle hook method used in Angular to initialize
+     * component properties and make API calls.
+     */
     ngOnInit(): void {
-        this.moviesService
-            .get('e80d5a37-620e-4be2-92b9-fb1f5262494f')
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe((data) => {
-                console.log(data);
-            });
+        if (this.id) {
+            this.moviesService
+                .get(this.id)
+                .pipe(takeUntilDestroyed(this.destroyRef))
+                .subscribe((movie) => {
+                    this.movie = movie;
+                    this.cd.markForCheck();
+                });
+        }
+    }
+
+    // ********
+    // * Events
+    // ********
+    onClickBackButton(): void {
+        window.history.back();
     }
 }

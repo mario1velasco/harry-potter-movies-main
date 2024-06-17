@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, TrackByFunction, inject } from '@angular/core';
 import { MoviesList } from '../../../shared/movies.types';
-import { Observable } from 'rxjs';
 import { NgIf, AsyncPipe, NgFor, CurrencyPipe } from '@angular/common';
-import { DurationPipe } from '../../../../../shared/pipes/duration.pipe';
-import { BudgetPipe } from '../../../../../shared/pipes/budget.pipe';
 import { Router } from '@angular/router';
+import { DurationPipe, BudgetPipe } from '../../../../../shared/pipes';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
