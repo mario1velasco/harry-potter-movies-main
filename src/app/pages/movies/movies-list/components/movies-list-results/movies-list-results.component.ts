@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, Input, TrackByFunction } from '@ang
 import { MoviesList } from '../../../shared/movies.types';
 import { Observable } from 'rxjs';
 import { NgIf, AsyncPipe, NgFor, CurrencyPipe } from '@angular/common';
+import { DurationPipe } from '../../../../../shared/pipes/duration.pipe';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgIf, AsyncPipe, NgFor, CurrencyPipe],
+    imports: [NgIf, AsyncPipe, NgFor, CurrencyPipe, DurationPipe],
     selector: 'app-movies-list-results',
     standalone: true,
     templateUrl: './movies-list-results.component.html',
