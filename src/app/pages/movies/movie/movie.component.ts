@@ -11,11 +11,11 @@ import { Movie } from '../shared/movies.types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { BudgetPipe, DurationPipe } from '../../../shared/pipes';
+import { MillionPipe, DurationPipe } from '../../../shared/pipes';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgIf, BudgetPipe, DurationPipe],
+    imports: [NgIf, MillionPipe, DurationPipe],
     providers: [MoviesService],
     selector: 'app-movie',
     standalone: true,

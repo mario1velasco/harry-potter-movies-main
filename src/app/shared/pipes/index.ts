@@ -1,2 +1,2 @@
-export * from './budget.pipe';
+export * from './million.pipe';
 export * from './duration.pipe';
