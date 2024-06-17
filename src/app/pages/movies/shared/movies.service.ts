@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { ApiService } from '../../shared/services/api.service';
+import { ApiService } from '../../../shared/services/api.service';
 import { Observable } from 'rxjs';
 import { Movie, MoviesList } from './movies.types';
 
