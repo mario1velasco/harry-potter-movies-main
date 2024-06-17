@@ -1,1 +1,44 @@
-<h1>HOLA</h1>
+<button
+    (click)="onClickBackButton()"
+    id="back-button">
+    Back
+</button>
+<section *ngIf="movie">
+    <h2 style="font-weight: bold">{{ movie.title }}</h2>
+    <div style="display: flex; flex-direction: row">
+        <img
+            height="300px"
+            width="200px"
+            src="{{ movie.poster }}"
+            alt="movie-image" />
+        <div>
+            <b>Summary:</b>
+            <span>&nbsp;</span>
+            <span>{{ movie.summary }}</span>
+        </div>
+    </div>
+    <h4>Details</h4>
+    <table>
+        <tr>
+            <td class="first-column">Box Office</td>
+            <td class="second-column">{{ movie.box_office | million }}</td>
+        </tr>
+        <tr>
+            <td class="first-column">Budget</td>
+            <td class="second-column">{{ movie.budget | million }}</td>
+        </tr>
+        <tr>
+            <td class="first-column">Duration</td>
+            <td class="second-column">{{ movie.duration | duration }}</td>
+        </tr>
+
+        <tr>
+            <td class="first-column">Producers</td>
+            <td class="second-column">{{ movie.producers.join(', ') }}</td>
+        </tr>
+        <tr>
+            <td class="first-column">Cinematographers</td>
+            <td class="second-column">{{ movie.cinematographers }}</td>
+        </tr>
+    </table>
+</section>
