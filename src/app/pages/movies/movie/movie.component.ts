@@ -10,7 +10,7 @@ import { MoviesService } from '../shared/movies.service';
 import { Movie } from '../shared/movies.types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { Location, NgIf } from '@angular/common';
 import { MillionPipe, DurationPipe } from '../../../shared/pipes';
 
 @Component({
@@ -28,6 +28,7 @@ export class MovieComponent implements OnInit {
     private destroyRef = inject(DestroyRef);
     private route = inject(ActivatedRoute);
     private cd = inject(ChangeDetectorRef);
+    private location = inject(Location);
 
     // * Variables
     public movie: Movie | undefined;
@@ -56,6 +57,6 @@ export class MovieComponent implements OnInit {
     // * Events
     // ********
     onClickBackButton(): void {
-        window.history.back();
+        this.location.back();
     }
 }
