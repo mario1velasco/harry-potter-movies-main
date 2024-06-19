@@ -7,16 +7,14 @@ import { Movie, MoviesList } from './movies.types';
 export class MoviesService {
     // * Injectors
     private apiService = inject(ApiService);
-    //  * Variables
-    private readonly API = 'http://localhost:4200';
 
     /**
      * The function `getList` retrieves a list of movies from a specified API endpoint.
      * @returns An Observable of an array of MoviesList objects is being returned.
      */
     getList(): Observable<MoviesList[]> {
-        const url = `${this.API}/movies`;
-        return this.apiService.get(url) as Observable<MoviesList[]>;
+        const path = `/movies`;
+        return this.apiService.get(path) as Observable<MoviesList[]>;
     }
     /**
      * This function retrieves a movie by its ID from an API using TypeScript and returns it as an
@@ -26,7 +24,7 @@ export class MoviesService {
      * @returns An Observable of type Movie is being returned.
      */
     get(id: string): Observable<Movie> {
-        const url = `${this.API}/movies/${id}`;
-        return this.apiService.get(url) as Observable<Movie>;
+        const path = `/movies/${id}`;
+        return this.apiService.get(path) as Observable<Movie>;
     }
 }
